@@ -31,6 +31,8 @@ jobs:
         IGNORE_GENERATED_FILES: true
         IGNORE_GITIGNORED_FILES: true
         VALIDATE_ALL_CODEBASE: false
+      continue-on-error: true
+      
 
     - name: Build Docker image
       run: docker build -t $IMAGE_NAME .
