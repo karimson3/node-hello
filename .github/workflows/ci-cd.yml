@@ -28,10 +28,14 @@ jobs:
     - name: Build Docker image
       run: docker build -t ${{ github.repository }} .
 
-    - name: Log in to Docker Hub
-      run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+    # Use GitHub OAuth for Docker Hub login
+    - name: Log in to Docker Hub using GitHub OAuth
+      uses: docker/login-action@v2
+      with:
+        username: ${{ github.actor }}  # Use the GitHub username
+        token: ${{ secrets.DOCKER_TOKEN }}  # GitHub Personal Access Token (PAT) stored in secrets
 
     - name: Push Docker image
       run: |
-        docker tag ${{ github.repository }} ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}
-        docker push ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}
+        docker tag ${{ github.repository }} ${{ github.actor }}/${{ github.repository }}
+        docker push ${{ github.actor }}/${{ github.repository }}
