@@ -42,3 +42,13 @@ jobs:
 
     - name: Push Docker image
       run: docker push $IMAGE_NAME
+
+    - name: Set up Terraform
+      uses: hashicorp/setup-terraform@v3
+
+    - name: Initialize Terraform
+      run: terraform init
+
+    - name: Apply Terraform (auto approve)
+      run: terraform apply -auto-approve -var="docker_username=${{ secrets.DOCKER_USERNAME }}"
+      
