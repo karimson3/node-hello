@@ -1,3 +1,5 @@
+variable "docker_username" {}
+
 terraform {
   required_providers {
     docker = {
@@ -9,16 +11,14 @@ terraform {
 
 provider "docker" {}
 
-variable "docker_username" {}
-
-resource "docker_image" "node_hello" {
-  name         = "${var.docker_username}/node-hello"
+resource "docker_image" "node_app" {
+  name         = "${var.docker_username}/my-node-app"
   keep_locally = false
 }
 
-resource "docker_container" "node_hello" {
+resource "docker_container" "node_app" {
   name  = "node-hello"
-  image = docker_image.node_hello.name
+  image = docker_image.node_app.name
   ports {
     internal = 3000
     external = 3000
