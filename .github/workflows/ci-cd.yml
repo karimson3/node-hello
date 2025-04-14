@@ -51,4 +51,10 @@ jobs:
 
     - name: Apply Terraform (auto approve)
       run: terraform apply -auto-approve -var="docker_username=${{ secrets.DOCKER_USERNAME }}"
+
+    - name: Wait for app to start
+      run: sleep 5
+
+    - name: Test app internally
+      run: curl http://localhost:3000
       
