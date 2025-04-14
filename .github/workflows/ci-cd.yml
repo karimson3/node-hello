@@ -28,12 +28,12 @@ jobs:
     - name: Build Docker image
       run: docker build -t ${{ github.repository }} .
 
-    # Use GitHub OAuth for Docker Hub login
-    - name: Log in to Docker Hub using GitHub OAuth
-      uses: docker/login-action@v2
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
       with:
-        username: ${{ github.actor }}  # Use the GitHub username
-        token: ${{ secrets.DOCKER_TOKEN }}  # GitHub Personal Access Token (PAT) stored in secrets
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.DOCKER_TOKEN }}
 
     - name: Push Docker image
       run: |
