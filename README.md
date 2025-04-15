@@ -71,3 +71,22 @@ docker run -p 3000:3000 node-hello
 
 Then visit: http://localhost:3000
 
+##  Deploying with Terraform
+
+This project uses Terraform to deploy the Docker container as part of the CI/CD pipeline.
+
+If you'd like to run the Terraform steps manually (outside the pipeline), follow these instructions:
+
+### 1. Install Terraform
+
+Make sure Terraform is installed on your local machine. You can download it from:  
+https://developer.hashicorp.com/terraform/downloads
+
+### 2. Navigate to the Terraform Directory
+
+```bash
+cd terraform
+terraform init
+terraform apply -auto-approve -var="docker_username=your-docker-username"
+
+
